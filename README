@@ -154,7 +154,7 @@ METHODS
 
         ... and anything else that you want to pass to the DateTime->new constructor
 
-    If "truncate" is specificied, then DateTime->truncate will be run after
+    If "truncate" is specified, then DateTime->truncate will be run after
     object creation.
 
     Furthermore, you can simply pass the value for "parse" as the first
