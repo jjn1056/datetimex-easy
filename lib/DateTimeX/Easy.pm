@@ -8,7 +8,6 @@ use constant DEBUG => 0;
 # ABSTRACT: Parse a date/time string using the best method available
 
 # VERSION
-our $VERSION = "0.089";
 
 =head1 SYNOPSIS
 
