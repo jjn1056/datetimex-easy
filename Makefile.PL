@@ -1,45 +1,79 @@
-use inc::Module::Install;
+use strict;
+use warnings;
 
-name 'DateTimeX-Easy';
-all_from 'lib/DateTimeX/Easy.pm';
 
-resources repository => 'http://github.com/robertkrimen/datetimex-easy/tree/master';
 
-{
-    require ExtUtils::MakeMaker;
-    use strict;
-    no strict 'refs';
+use ExtUtils::MakeMaker;
 
-    my $libscan = \&{"ExtUtils::MM_Any::libscan"};
-    *{"ExtUtils::MM_Any::libscan"} = sub {
-        return '' unless $libscan->(@_);
-        return '' if $_[1] =~ /\.sw[p-z]$/;
-        return $_[1];
-    };
+my %WriteMakefileArgs = (
+  "ABSTRACT" => "Parse a date/time string using the best method available",
+  "AUTHOR" => "Robert Krimen <rokr\@cpan.org>",
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => 0
+  },
+  "DISTNAME" => "DateTimeX-Easy",
+  "LICENSE" => "perl",
+  "NAME" => "DateTimeX::Easy",
+  "PREREQ_PM" => {
+    "Carp" => 0,
+    "Date::Parse" => 0,
+    "DateTime" => 0,
+    "DateTime::Format::DateManip" => 0,
+    "DateTime::Format::Flexible" => 0,
+    "DateTime::Format::ICal" => 0,
+    "DateTime::Format::Natural" => 0,
+    "DateTime::TimeZone" => 0,
+    "Exporter" => 0,
+    "Scalar::Util" => 0,
+    "Time::Zone" => 0,
+    "YAML" => 0,
+    "base" => 0,
+    "constant" => 0,
+    "strict" => 0,
+    "vars" => 0,
+    "warnings" => 0
+  },
+  "TEST_REQUIRES" => {
+    "Test::More" => 0,
+    "Test::Most" => 0
+  },
+  "VERSION" => "0.090",
+  "test" => {
+    "TESTS" => "t/*.t t/release/*.t"
+  }
+);
+
+
+my %FallbackPrereqs = (
+  "Carp" => 0,
+  "Date::Parse" => 0,
+  "DateTime" => 0,
+  "DateTime::Format::DateManip" => 0,
+  "DateTime::Format::Flexible" => 0,
+  "DateTime::Format::ICal" => 0,
+  "DateTime::Format::Natural" => 0,
+  "DateTime::TimeZone" => 0,
+  "Exporter" => 0,
+  "Scalar::Util" => 0,
+  "Test::More" => 0,
+  "Test::Most" => 0,
+  "Time::Zone" => 0,
+  "YAML" => 0,
+  "base" => 0,
+  "constant" => 0,
+  "strict" => 0,
+  "vars" => 0,
+  "warnings" => 0
+);
+
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
+  delete $WriteMakefileArgs{TEST_REQUIRES};
+  delete $WriteMakefileArgs{BUILD_REQUIRES};
+  $WriteMakefileArgs{PREREQ_PM} = \%FallbackPrereqs;
 }
 
-{
-    map { my ($pk, $vr) = split m/\s/; build_requires $pk => $vr || 0 } grep { ! /^\s*#/ } split m/\n/, <<_END_;
-Test::Most
-_END_
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
 
-    map { my ($pk, $vr) = split m/\s/; requires $pk => $vr || 0 } grep { ! /^\s*#/ } split m/\n/, <<_END_;
-Date::Parse
-Time::Zone
-DateTime
-DateTime::Format::Natural
-DateTime::Format::Flexible
-DateTime::Format::ICal
-Scalar::Util
-_END_
-}
-
-if (-e 'inc/.author') {
-    my $all_from = join '/', 'lib', split m/-/, name . '.pm';
-    `perldoc -tF $all_from > README` if ! -e 'README' || (stat $all_from)[9] > (stat 'README')[9];
-}
-
-auto_install;
-
-WriteAll;
-
+WriteMakefile(%WriteMakefileArgs);

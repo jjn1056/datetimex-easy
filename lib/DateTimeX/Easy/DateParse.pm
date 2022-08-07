@@ -7,10 +7,14 @@ DateTimeX::Easy::DateParse;
 #
 # $Id: DateParse.pm 3517 2006-09-17 23:10:10Z jhoblitt $
 
+
+# ABSTRACT: DateParse fork for datetimex::easy
 use strict;
 
 use vars qw($VERSION);
 $VERSION = '0.04';
+
+# VERSION
 
 use DateTime;
 use DateTime::TimeZone;
@@ -21,7 +25,7 @@ use Time::Zone qw( tz_offset );
 
 =item parse_datetime
 
-=back 
+=back
 
 =cut
 
@@ -84,7 +88,7 @@ sub parse_datetime {
 
     return DateTime->new(
         %p,
-        time_zone   => 
+        time_zone   =>
             # not an Olson timezone, no DST info
             DateTime::TimeZone::offset_as_string( $offset ),
     );
