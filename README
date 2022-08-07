@@ -233,12 +233,14 @@ SEE ALSO
 
     Date::Manip
 
-AUTHOR
-    Robert Krimen <rokr@cpan.org>
-
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2022 by Robert Krimen and others, see the
-    git log.
+    This software is copyright (c) 2022 by Robert Krimen and others; in
+    detail:
+
+      Copyright 2007-2009  Robert Krimen
+                2010       John Napiorkowski, Leo Lapworth, Robert Krimen
+                2014       David Steinbrunner
+                2022       Wesley Schwengle
 
     This is free software; you can redistribute it and/or modify it under
     the same terms as the Perl 5 programming language system itself.
