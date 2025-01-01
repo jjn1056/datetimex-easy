@@ -4,7 +4,7 @@ use warnings;
 use strict;
 
 use constant DEBUG => 0;
-our $VERSION = '0.091';
+our $VERSION = '0.092';
 
 =encoding UTF-8
  
